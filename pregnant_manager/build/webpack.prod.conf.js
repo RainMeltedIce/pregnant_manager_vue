@@ -6,25 +6,45 @@ const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+// 为html文件中引入的外部资源（比如script/link等）动态添加每次compile后的hash，保证文件名不重复的好处是防止引用缓存文件导致修改暂未生效；可生成创建html入口文件
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// 抽离css样式，防止将样式打包到js中引起加载错乱
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+// 压缩css插件
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+// 压缩js代码。
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+//设置为生产环境production
 const env = require('../config/prod.env')
-
+// merge方法合并模块对象，在这个文件里是将基础配置webpack.base.conf.js和生产环境配置合并
 const webpackConfig = merge(baseWebpackConfig, {
+  // 模块配置
   module: {
+    //原版注释Generate loaders for standalone style files (outside of .vue)生成独立的样式文件装载机
     rules: utils.styleLoaders({
+      // 设置sourceMap
       sourceMap: config.build.productionSourceMap,
       extract: true,
       usePostCSS: true
     })
   },
+  // 指定是否使用sourceMap
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  // 指定输出
   output: {
     path: config.build.assetsRoot,
+    // 编译输出的js文件存放在js文件夹下，命名规则添加hash计算
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
+     /**
+     * 打包require.ensure方法中引入的模块，如果该方法中没有引入任何模块则不会生成任何chunk块文件
+     *
+     * 比如在main.js文件中,require.ensure([],function(require){alert(11);}),这样不会打包块文件
+     * 只有这样才会打包生成块文件require.ensure([],function(require){alert(11);require('./greeter')})
+     * 或者这样require.ensure(['./greeter'],function(require){alert(11);})
+     * chunk的hash值只有在require.ensure中引入的模块发生变化,hash值才会改变
+     * 注意:对于不是在ensure方法中引入的模块,此属性不会生效,只能用CommonsChunkPlugin插件来提取
+     */
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
@@ -32,12 +52,14 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    // 压缩js代码的插件  具体可以去npm查一下这个插件怎么用以及能设置哪些参数
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {
           warnings: false
         }
       },
+      // 是否生成sourceMap
       sourceMap: config.build.productionSourceMap,
       parallel: true
     }),
@@ -116,9 +138,9 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
-  ]
+  ]// 添加插件，是webpack功能更丰富
 })
-
+// 是否允许压缩？
 if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
