@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "cnpm": "^6.1.0",
+    "element-ui": "^2.11.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

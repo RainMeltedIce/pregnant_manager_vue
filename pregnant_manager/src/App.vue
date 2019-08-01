@@ -1,6 +1,13 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
+  <div>
+    <div id="app">
+      <img src="./assets/logo.png">
+      <!-- 加载router注册的信息 -->
+      <p>来自app.vue的div</p>
+    </div>
+    <div id="app1">
+      <span>12312312</span>
+    </div>
     <router-view/>
   </div>
 </template>

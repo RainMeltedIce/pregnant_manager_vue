@@ -2,7 +2,6 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
     <router-link to="/testVue">
      <button class="btn btn-default">点击跳转</button>
     </router-link>
@@ -14,7 +13,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: '这是HelloWorld.vue'
     }
   }
 }

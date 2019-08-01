@@ -5,10 +5,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import ElementUI from 'element-ui'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+Vue.use(ElementUI, {
+  size: 'medium'
+})
+
 // new Vue代表新建vue对象
 new Vue({
   // el官方解释：为实例提供挂载元素。值可以是 CSS 选择符，或实际 HTML 元素，或返回 HTML 元素的函数。
@@ -20,5 +25,12 @@ new Vue({
   components: { App },
   // template：代表模板。官方解释：模板将会替换挂载的元素。挂载元素的内容都将被忽略。
   // 也就是说:template: '<App/>' 表示用<app></app>替换index.html里面的<div id="app"></div>
+  template: '<App/>'
+})
+
+new Vue({
+  el: '#app1',
+  router,
+  components: { App },
   template: '<App/>'
 })
