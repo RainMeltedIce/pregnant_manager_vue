@@ -30,7 +30,7 @@ new Vue({
 
 new Vue({
   el: '#app1',
-  router,
+  // router,
   components: { App },
   template: '<App/>'
 })
