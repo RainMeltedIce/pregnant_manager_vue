@@ -1,13 +1,13 @@
 <template>
   <div>
     <div id="app">
-      <img src="./assets/logo.png">
+      <!-- <img src="./assets/loginBackground.jpg"> -->
       <!-- 加载router注册的信息 -->
-      <p>来自app.vue的div</p>
+      <!-- <p>来自app.vue的div</p> -->
     </div>
-    <div id="app1">
+    <!-- <div id="app1">
       <span>12312312</span>
-    </div>
+    </div> -->
     <router-view/>
   </div>
 </template>
@@ -32,6 +32,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
