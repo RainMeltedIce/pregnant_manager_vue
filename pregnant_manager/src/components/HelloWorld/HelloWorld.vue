@@ -57,18 +57,12 @@ export default {
       var tempMessage = ''
       if (message === 'ok') {
         tempMessage = 'ok'
+        this.$router.push('/testVue')
+        return
       } else {
         tempMessage = 'canel'
       }
       alert(tempMessage)
-      $.ajax({
-        url: 'http://192.168.0.6:8763/v1/web/pad/login',
-        type: 'post',
-        dataType: 'json',
-          success: (json) => {
-            console.log(json)
-          }
-          })
     }
   }
 }
